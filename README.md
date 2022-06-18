@@ -50,7 +50,7 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 ## Basics
 # ReactLessons
 
-https://github.com/DanielOrtyn1/ReactLessons.git
+git clone https://github.com/DanielOrtyn1/ReactLessons.git
 
 
 Node.js
