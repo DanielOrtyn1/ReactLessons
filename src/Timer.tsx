@@ -5,6 +5,7 @@ interface ITimerState {
   time: string;
   interval?: NodeJS.Timer;
 }
+const tickSpacing = 100;
 
 
 export class Timer extends Component<any, ITimerState, any> {
@@ -27,19 +28,32 @@ export class Timer extends Component<any, ITimerState, any> {
   }
 
   componentDidMount() {
-    const tickSpacing = 100;
-    this.setState({
-      start: Date.now(),
-      interval: setInterval(() => this.tick(), tickSpacing)
-    });
+    console.log('start');
+    this.setStartTime();
   }
 
   componentWillUnmount() {
+    console.log('end');
     clearInterval(this.state.interval);
   }
 
   setStartTime() {
-    this.setState({ start: Date.now() })
+    this.setState({
+      start: Date.now()
+    });
+    this.startTimer();
+  }
+
+  startTimer() {
+    this.endTimer();
+    const newInterval = setInterval(() => this.tick(), tickSpacing);
+    this.setState({
+      interval: newInterval
+    });
+  }
+
+  endTimer() {
+    clearInterval(this.state.interval);
   }
 
   render() {
@@ -47,6 +61,12 @@ export class Timer extends Component<any, ITimerState, any> {
       <div>
         <button onClick={() => this.setStartTime()}>
           Restart
+        </button>
+        <button onClick={() => this.startTimer()}>
+          Start
+        </button>
+        <button onClick={() => this.endTimer()}>
+          Stop
         </button>
         <div>
           {`Seconds: ${this.state.time}`}
